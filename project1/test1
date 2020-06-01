@@ -1,0 +1,85 @@
+Script started on Tue 28 Jan 2020 07:14:13 PM EST
+]0;agarrett0098@grace: ~/CS215/project1[01;32magarrett0098@grace[00m:[01;34m~/CS215/project1[00m$ exit./a.out [9@g++ project1.cpp[C[9P./a.out[C
+
+Please enter the number of American Colonial Style chairs that were sold: 100
+
+Please enter the number of Modern Style chairs that were sold: 4
+
+Please enter the number of Fresh Classical Style chairs that were sold: 37
+
+Style                    Price Per Chair         Chairs Sold         Total Sales
+-----                    ---------------         -----------         -----------
+American Colonial               $  85.00                 100        $    8500.00
+Modern                          $  57.00                   4        $     228.00
+Fresh Classical                 $ 127.75                  37        $    4726.75
+
+                                                                      ----------
+TOTAL                                                               $   13454.75
+]0;agarrett0098@grace: ~/CS215/project1[01;32magarrett0098@grace[00m:[01;34m~/CS215/project1[00m$ ./a.out 
+
+Please enter the number of American Colonial Style chairs that were sold: -100
+
+Please enter the number of Modern Style chairs that were sold: 14
+
+Please enter the number of Fresh Classical Style chairs that were sold: 23
+
+Style                    Price Per Chair         Chairs Sold         Total Sales
+-----                    ---------------         -----------         -----------
+American Colonial               $  85.00          4294967196        $ 365072220160.00
+Modern                          $  57.00                  14        $     798.00
+Fresh Classical                 $ 127.75                  23        $    2938.25
+
+                                                                      ----------
+TOTAL                                                               $ 365072220160.00
+]0;agarrett0098@grace: ~/CS215/project1[01;32magarrett0098@grace[00m:[01;34m~/CS215/project1[00m$ ./a.out 
+
+Please enter the number of American Colonial Style chairs that were sold: 140
+
+Please enter the number of Modern Style chairs that were sold: 1300
+
+Please enter the number of Fresh Classical Style chairs that were sold: 430
+
+Style                    Price Per Chair         Chairs Sold         Total Sales
+-----                    ---------------         -----------         -----------
+American Colonial               $  85.00                 140        $   11900.00
+Modern                          $  57.00                1300        $   74100.00
+Fresh Classical                 $ 127.75                 430        $   54932.50
+
+                                                                      ----------
+TOTAL                                                               $  140932.50
+]0;agarrett0098@grace: ~/CS215/project1[01;32magarrett0098@grace[00m:[01;34m~/CS215/project1[00m$ ./a.out 
+
+Please enter the number of American Colonial Style chairs that were sold: 0
+
+Please enter the number of Modern Style chairs that were sold: 0
+
+Please enter the number of Fresh Classical Style chairs that were sold: 0
+
+Style                    Price Per Chair         Chairs Sold         Total Sales
+-----                    ---------------         -----------         -----------
+American Colonial               $  85.00                   0        $       0.00
+Modern                          $  57.00                   0        $       0.00
+Fresh Classical                 $ 127.75                   0        $       0.00
+
+                                                                      ----------
+TOTAL                                                               $       0.00
+]0;agarrett0098@grace: ~/CS215/project1[01;32magarrett0098@grace[00m:[01;34m~/CS215/project1[00m$ ./a.out 
+
+Please enter the number of American Colonial Style chairs that were sold: 20000
+
+Please enter the number of Modern Style chairs that were sold: 1
+
+Please enter the number of Fresh Classical Style chairs that were sold: 99999
+
+Style                    Price Per Chair         Chairs Sold         Total Sales
+-----                    ---------------         -----------         -----------
+American Colonial               $  85.00               20000        $ 1700000.00
+Modern                          $  57.00                   1        $      57.00
+Fresh Classical                 $ 127.75               99999        $ 12774872.00
+
+                                                                      ----------
+TOTAL                                                               $ 14474929.00
+]0;agarrett0098@grace: ~/CS215/project1[01;32magarrett0098@grace[00m:[01;34m~/CS215/project1[00m$ exit
+exit
+
+Script done on Tue 28 Jan 2020 07:15:48 PM EST

@@ -1,0 +1,137 @@
+Script started on Thu 20 Feb 2020 10:52:46 AM EST
+]0;agarrett0098@grace: ~/CS215/project2[01;32magarrett0098@grace[00m:[01;34m~/CS215/project2[00m$ ./a.out 
+
+Welcome to the Average Calculator
+Please enter the name of the class: Computer Science
+
+Please enter a score for the class: 0
+
+Would you like to enter another score? (Y/n): y
+
+Please enter a score for the class: 80
+
+Would you like to enter another score? (Y/n): y
+
+Please enter a score for the class: 50
+
+Would you like to enter another score? (Y/n): y
+
+Please enter a score for the class: 100
+
+Would you like to enter another score? (Y/n): n
+
+
+Computer Science: mean of grades >= C is 90.0; mean of grades < C is 25.0
+
+]0;agarrett0098@grace: ~/CS215/project2[01;32magarrett0098@grace[00m:[01;34m~/CS215/project2[00m$ ./a.out 
+
+Welcome to the Average Calculator
+Please enter the name of the class: Security
+
+Please enter a score for the class: 68
+
+Would you like to enter another score? (Y/n): y
+
+Please enter a score for the class: 71
+
+Would you like to enter another score? (Y/n): y
+
+Please enter a score for the class: 69
+
+Would you like to enter another score? (Y/n): y
+
+Please enter a score for the class: 70
+
+Would you like to enter another score? (Y/n): n
+
+
+Security: mean of grades >= C is 70.5; mean of grades < C is 68.5
+
+]0;agarrett0098@grace: ~/CS215/project2[01;32magarrett0098@grace[00m:[01;34m~/CS215/project2[00m$ ./a.out 
+
+Welcome to the Average Calculator
+Please enter the name of the class: Hardware Support
+
+Please enter a score for the class: -2
+Please enter a score between 0 and 100.
+
+Please enter a score for the class: 89
+
+Would you like to enter another score? (Y/n): y
+
+Please enter a score for the class: -5
+Please enter a score between 0 and 100.
+
+Please enter a score for the class: 91
+
+Would you like to enter another score? (Y/n): y
+
+Please enter a score for the class: 101
+Please enter a score between 0 and 100.
+
+Please enter a score for the class: 60
+
+Would you like to enter another score? (Y/n): y
+
+Please enter a score for the class: 106
+Please enter a score between 0 and 100.
+
+Please enter a score for the class: 50
+
+Would you like to enter another score? (Y/n): n
+
+
+Hardware Support: mean of grades >= C is 90.0; mean of grades < C is 55.0
+
+]0;agarrett0098@grace: ~/CS215/project2[01;32magarrett0098@grace[00m:[01;34m~/CS215/project2[00m$ ./a.out 
+
+Welcome to the Average Calculator
+Please enter the name of the class: Programming
+
+Please enter a score for the class: 0
+
+Would you like to enter another score? (Y/n): y
+
+Please enter a score for the class: 0
+
+Would you like to enter another score? (Y/n): y
+
+Please enter a score for the class: 0
+
+Would you like to enter another score? (Y/n): y
+
+Please enter a score for the class: 0
+
+Would you like to enter another score? (Y/n): n
+
+
+Programming: mean of grades >= C is 0.0; mean of grades < C is 0.0
+
+]0;agarrett0098@grace: ~/CS215/project2[01;32magarrett0098@grace[00m:[01;34m~/CS215/project2[00m$ ./a.out 
+
+Welcome to the Average Calculator
+Please enter the name of the class: Programming 2
+
+Please enter a score for the class: 60
+
+Would you like to enter another score? (Y/n): y
+
+Please enter a score for the class: 60
+
+Would you like to enter another score? (Y/n): y
+
+Please enter a score for the class: 80
+
+Would you like to enter another score? (Y/n): y
+
+Please enter a score for the class: 80
+
+Would you like to enter another score? (Y/n): n
+
+
+Programming 2: mean of grades >= C is 80.0; mean of grades < C is 60.0
+
+]0;agarrett0098@grace: ~/CS215/project2[01;32magarrett0098@grace[00m:[01;34m~/CS215/project2[00m$ exit
+exit
+
+Script done on Thu 20 Feb 2020 10:55:59 AM EST

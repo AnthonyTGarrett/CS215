@@ -1,0 +1,773 @@
+Script started on Wed 15 Apr 2020 05:21:57 PM EDT
+]0;agarrett0098@grace: ~/CS215/project4[01;32magarrett0098@grace[00m:[01;34m~/CS215/project4[00m$ ./main g++ -o main LinkedList.cpp project4.cpp[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C./main [K[K[K[K[K[K[K[Kcat LinkedList.h 
+// Specification File for the LindedList class
+#ifndef LINKEDLIST_H
+#define LINKEDLIST_H
+#include <string>
+
+using namespace std;
+
+//************************************************************
+// Struct for creating a node for the LinkedList class as defined below
+//************************************************************
+
+struct MyNode
+{
+    int sequence_number;
+    string document_name;
+    int month;
+    int day;
+    int year;
+    int hour;
+    int minute;
+    string owner;
+    string service_required;
+    MyNode *next;
+};
+
+//************************************************************
+// LinkedList class
+// data members are pointers to MyNode elements of the list
+// Default constructor
+// Destructor to delete all nodes
+// Member functions usage defined in implementation file
+//************************************************************
+
+class LinkedList
+{
+    private:
+        MyNode *head;
+        MyNode *tail;
+
+    public:
+        LinkedList();
+
+        ~LinkedList();
+
+        void InsertNode(string, int, int, int, int, int, string);
+        bool DeleteNode(string);
+        MyNode *SearchNode(string);
+        MyNode *PrintDocument();
+        int ListAll();
+
+};
+
+#endif]0;agarrett0098@grace: ~/CS215/project4[01;32magarrett0098@grace[00m:[01;34m~/CS215/project4[00m$ cat LinkedList.cpp 
+// Implementation File for the LindedList class
+#include "LinkedList.h"
+#include <iostream>
+#include <iomanip>
+#include <string>
+
+using namespace std;
+
+//************************************************************
+// Constructor to assign points to NULL
+//************************************************************
+
+LinkedList::LinkedList()
+{
+    head = NULL;
+    tail = NULL;
+}
+
+//************************************************************
+// Destructor to delete all nodes in the list
+//************************************************************
+
+LinkedList::~LinkedList()
+{
+    MyNode *nodePtr; // Used to step through the list of nodes
+    MyNode *nextNode; // Used to keep track of the next node in the list
+
+    // Start at the beginning of the list
+    nodePtr = head;
+
+    // Step through the list until the current pointer points to null
+    while (nodePtr != NULL)
+    {
+        // Save the next pointer value
+        nextNode = nodePtr->next;
+
+        
+        delete nodePtr;
+
+        
+        nodePtr = nextNode;
+    }
+}
+
+//************************************************************
+// Insert New Node into the Linked List at the head
+// Requires 7 inputs string, int, int, int, int, int, string
+// Doesn't return anything
+//************************************************************
+
+void LinkedList::InsertNode(string doc_name, int new_month, int new_day, int new_year, int new_hour, int new_minute, string user)
+{
+    MyNode *newNode;
+
+    // Allocate new node and store the values
+    newNode = new MyNode;
+    newNode->document_name = doc_name;
+    newNode->month = new_month;
+    newNode->day = new_day;
+    newNode->year = new_year;
+    newNode->hour = new_hour;
+    newNode->minute = new_minute;
+    newNode->owner = user;
+
+    // If the list is empty assign head and tail to the new node and then the tail ptr to null
+    // to signify the end of the list
+    if (!head)
+    {
+        newNode->sequence_number = 1;
+        head = newNode;
+        tail = newNode;
+        tail->next = NULL;
+    }
+
+    // If the list has members then add the new node at the head and increment the sequence_number
+    else
+    {
+        newNode->sequence_number = head->sequence_number + 1;
+        newNode->next = head;
+        head = newNode;
+
+    }
+}
+
+//************************************************************
+// Delete Node from the List
+// Accepts doc_name string as input
+// Returns a bool to represent if the document was found and deleted
+//************************************************************
+
+bool LinkedList::DeleteNode(string doc_name)
+{
+    MyNode *nodePtr;
+    MyNode *prevNode;
+    MyNode *delNode;
+
+    // Search the list for the node with doc_name as document_name
+    delNode = SearchNode(doc_name);
+
+    // If delNode wasn't found by SearchNode then return false
+    if (!delNode)
+    {
+        return false;
+    }
+
+    // If delNode is the head of the list
+    if (delNode == head)
+    {
+        nodePtr = head->next;
+        delete head;
+        head = nodePtr;
+        return true;
+    }
+    // All other deletions traverse list and delete if found otherwise return false
+    else
+    {
+        nodePtr = head;
+
+        while (nodePtr != NULL && delNode != nodePtr)
+        {
+            prevNode = nodePtr;
+            nodePtr = nodePtr->next;
+        }
+
+        if(nodePtr)
+        {
+            prevNode->next = nodePtr->next;
+            delete nodePtr;
+            return true;
+        }
+
+        return false;
+    }
+}
+
+//************************************************************
+// Search the list for the given document name
+// Accepts string doc_name as input
+// Return pointer to the node containing the document or
+// null if not found
+//************************************************************
+
+MyNode * LinkedList::SearchNode(string doc_name)
+{
+    MyNode *nodePtr;
+    nodePtr = NULL;
+
+    if(!head)
+    {
+        return nodePtr;
+    }
+    else
+    {
+        // Set current pointer to the head of the list
+        nodePtr = head;
+
+        // Loop through the list until the document name matches or nodePtr is null
+        while ((nodePtr->document_name != doc_name) && (nodePtr != NULL))
+        {
+            nodePtr = nodePtr->next;
+        }
+
+        return nodePtr;
+    }
+}
+
+//************************************************************
+// Delete Node from the List
+// Accepts no inputs
+// Return a pointer to the tail of the list
+//************************************************************
+
+MyNode * LinkedList::PrintDocument()
+{
+    MyNode *nodePtr;
+    MyNode *prevPtr;
+
+    // Check if list is empty then return NULL and notify user
+    if(!head)
+    {
+        cout << "\n\tNo documents to print.\n";
+        return NULL;
+    }
+
+    // Check if only one node exists in list
+    // Delete head and notify user
+    if(head == tail)
+    {
+        nodePtr = head;
+
+        cout << "\n\tThe "<< nodePtr->document_name << " document has been printed." << endl;
+        head = NULL;
+        tail = NULL;
+        delete nodePtr;
+        return NULL;
+        
+    }
+    else
+    {
+
+        nodePtr = head;
+
+        while (nodePtr != tail)
+        {
+            prevPtr = nodePtr;
+            nodePtr = nodePtr->next;
+        }
+
+        if (nodePtr)
+        {
+            cout << "\n\tThe "<< nodePtr->document_name << " document has been printed." << endl;
+            tail = prevPtr;
+            prevPtr->next = NULL;
+            delete nodePtr;
+            return tail;
+        }
+    }
+}
+
+//************************************************************
+// List all nodes to the console
+// Accepts no inputs
+// Return the total number of nodes in the list
+//************************************************************
+
+int LinkedList::ListAll()
+{
+    int counter = 0; // Keeps track of the number of nodes in the list
+
+    MyNode *nodePtr;
+
+    if(!head)
+        return counter;
+
+    nodePtr = head;
+
+    // Traverse the list printing the required information to the console
+    while (nodePtr != NULL)
+    {
+        counter++;
+        cout << "\t" << left << setw(10) << nodePtr->sequence_number << setw(20) << right << nodePtr->document_name << setw(15) << " " << setw(2) << nodePtr->month << "/" << setw(2) << nodePtr->day << "/" << setw(4) << nodePtr->year;
+        cout << " " << setw(2) << nodePtr->hour << setw(1) << ":" << setw(2) << nodePtr->minute << right << setw(20) << nodePtr->owner << endl;
+        nodePtr = nodePtr->next;
+    }
+
+    return counter;
+}]0;agarrett0098@grace: ~/CS215/project4[01;32magarrett0098@grace[00m:[01;34m~/CS215/project4[00m$ cat project4.cpp 
+// Print Job Manager Simulator
+// Anthony Garrett
+// 04/17/2020
+// 
+// Program to simulate a printer print queue
+// Menu based UI to allow users to create print jobs, delete print jobs
+// display print jobs, and simulate printing a print job
+#include "LinkedList.h"
+#include <iostream>
+#include <iomanip>
+#include <string>
+
+using namespace std;
+
+
+int main()
+{
+    LinkedList printJobs;    // Class instance
+    int choice, total_nodes; // user menu choice and counter to catch ListAll return
+    char garbage;            // collecting unused chars from formatting on cin
+
+    string doc_name, user;   // Hold user input
+    int month, day, year, hour, minute; // Input for new print job creation
+
+    // Loop to display the available menu until the user enters 5 to quit
+    do
+    {
+        cout << "\n\tPrint Queue Management System\n" << endl;
+        cout << "\t1) New print job" << endl;
+        cout << "\t2) Print a document" << endl;
+        cout << "\t3) Cancel a print request - remove print job" << endl;
+        cout << "\t4) List all documents waiting to be printed" << endl;
+        cout << "\t5) Quit"<< endl;
+        
+        cout << "\n\tWhat would you like to do? ";
+        cin >> choice;
+        garbage = cin.get();
+
+        // Handle the input choice made by the user
+        switch (choice)
+        {
+            // User choice for new print job
+            // Prompt for new print jobs required arguments and discard garbage formatting
+            case 1:
+                cout << "\n\tI will need some information regarding the new print Job\n";
+                cout << "\tPlease enter the document name: ";
+                getline(cin, doc_name);
+
+                cout << "\tPlease enter the date formatted as MM/DD/YYYY: ";
+                cin >> month >> garbage >> day >> garbage >> year;
+                cout << "\tPlease enter the time formatted as HH:MM: ";
+                cin >> hour >> garbage >> minute;
+                garbage = cin.get();
+
+                cout << "\tPlease enter the username printing the document: ";
+                getline(cin, user);
+
+                // Call member function to insert new print job in the list
+                printJobs.InsertNode(doc_name, month, day, year, hour, minute, user);
+                break;
+            
+            // User choice to print docuemnt prints the first document in queue
+            case 2:
+                printJobs.PrintDocument();
+                break;
+
+            // User choice to cancel print job
+            // Notify user of result of print job deletion attempt
+            case 3:
+                cout <<"\n\tWhich print job would you like to cancel? ";
+                getline(cin, doc_name);
+                if(printJobs.DeleteNode(doc_name))
+                {
+                    cout << "\n\tThe document was removed and was not printed.\n";
+                }
+                else
+                {
+                    cout << "\n\tProbably too late, the document was already printed.\n";
+                }
+                break;
+
+            // User choice to display all print jobs
+            case 4:
+                
+                cout << "\n\n\tCLASSROOM BUILDING 222 PRINTER - DOCUMENTS WAITING FOR PRINTING\n\n";
+                cout << "\t" << left << setw(10) << "SEQUENCE" << right << setw(20) << "NAME" << setw(32) << "ARRIVAL DATE/TIME" << setw(20) << "OWNER\n";
+                total_nodes = printJobs.ListAll();
+                cout << "\n\tThere are " << total_nodes << " job(s) waiting to be printed.\n";
+                break;
+
+            // User choice to quit
+            // Thank the user for using the program before exit
+            case 5:
+                cout << "\nThanks for using the Print Queue Management System\n";
+                break;
+
+            // Prompts the user for the correct input if the int entered is incorrect
+            default:
+                cout << "\n\tPlease choose from 1 to 5\n";
+                break;
+        }
+
+    }
+    while(choice != 5);
+
+    return 0;
+};]0;agarrett0098@grace: ~/CS215/project4[01;32magarrett0098@grace[00m:[01;34m~/CS215/project4[00m$ cat project4.cpp [2@LinkedList[C[C[C[C[C[2Ph[C[10P./main[Cg++ -o main LinkedList.cpp project4.cpp
+]0;agarrett0098@grace: ~/CS215/project4[01;32magarrett0098@grace[00m:[01;34m~/CS215/project4[00m$ g++ -o main LinkedList.cpp project4.cpp[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[22Pcat project4.cpp [2@LinkedList[C[C[C[C[C[2Ph[C[10P./main[C
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 1
+
+	I will need some information regarding the new print Job
+	Please enter the document name: Birds of Prey
+	Please enter the date formatted as MM/DD/YYYY: 08/28/1979
+	Please enter the time formatted as HH:MM: 12:35
+	Please enter the username printing the document: agarrett
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 4
+
+
+	CLASSROOM BUILDING 222 PRINTER - DOCUMENTS WAITING FOR PRINTING
+
+	SEQUENCE                  NAME               ARRIVAL DATE/TIME              OWNER
+	1                Birds of Prey                8/28/1979 12:35            agarrett
+
+	There are 1 job(s) waiting to be printed.
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 1
+
+	I will need some information regarding the new print Job
+	Please enter the document name: Birds of Paradise
+	Please enter the date formatted as MM/DD/YYYY: 09/21/1975
+	Please enter the time formatted as HH:MM: 11:45
+	Please enter the username printing the document: garrettb
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 4
+
+
+	CLASSROOM BUILDING 222 PRINTER - DOCUMENTS WAITING FOR PRINTING
+
+	SEQUENCE                  NAME               ARRIVAL DATE/TIME              OWNER
+	2            Birds of Paradise                9/21/1975 11:45            garrettb
+	1                Birds of Prey                8/28/1979 12:35            agarrett
+
+	There are 2 job(s) waiting to be printed.
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 1
+
+	I will need some information regarding the new print Job
+	Please enter the document name: Da Goods
+	Please enter the date formatted as MM/DD/YYYY: 05/03/1982
+	Please enter the time formatted as HH:MM: 05:58
+	Please enter the username printing the document: stanlee
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 4
+
+
+	CLASSROOM BUILDING 222 PRINTER - DOCUMENTS WAITING FOR PRINTING
+
+	SEQUENCE                  NAME               ARRIVAL DATE/TIME              OWNER
+	3                     Da Goods                5/ 3/1982  5:58             stanlee
+	2            Birds of Paradise                9/21/1975 11:45            garrettb
+	1                Birds of Prey                8/28/1979 12:35            agarrett
+
+	There are 3 job(s) waiting to be printed.
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 1
+
+	I will need some information regarding the new print Job
+	Please enter the document name: Hammer Time
+	Please enter the date formatted as MM/DD/YYYY: 08/25/1982
+	Please enter the time formatted as HH:MM: 09:47
+	Please enter the username printing the document: mchammer
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 4
+
+
+	CLASSROOM BUILDING 222 PRINTER - DOCUMENTS WAITING FOR PRINTING
+
+	SEQUENCE                  NAME               ARRIVAL DATE/TIME              OWNER
+	4                  Hammer Time                8/25/1982  9:47            mchammer
+	3                     Da Goods                5/ 3/1982  5:58             stanlee
+	2            Birds of Paradise                9/21/1975 11:45            garrettb
+	1                Birds of Prey                8/28/1979 12:35            agarrett
+
+	There are 4 job(s) waiting to be printed.
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 3
+
+	Which print job would you like to cancel? Da Goods
+
+	The document was removed and was not printed.
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 4
+
+
+	CLASSROOM BUILDING 222 PRINTER - DOCUMENTS WAITING FOR PRINTING
+
+	SEQUENCE                  NAME               ARRIVAL DATE/TIME              OWNER
+	4                  Hammer Time                8/25/1982  9:47            mchammer
+	2            Birds of Paradise                9/21/1975 11:45            garrettb
+	1                Birds of Prey                8/28/1979 12:35            agarrett
+
+	There are 3 job(s) waiting to be printed.
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 2
+
+	The Birds of Prey document has been printed.
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 4
+
+
+	CLASSROOM BUILDING 222 PRINTER - DOCUMENTS WAITING FOR PRINTING
+
+	SEQUENCE                  NAME               ARRIVAL DATE/TIME              OWNER
+	4                  Hammer Time                8/25/1982  9:47            mchammer
+	2            Birds of Paradise                9/21/1975 11:45            garrettb
+
+	There are 2 job(s) waiting to be printed.
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 1
+
+	I will need some information regarding the new print Job
+	Please enter the document name: Next One
+	Please enter the date formatted as MM/DD/YYYY: 07/04/1776
+	Please enter the time formatted as HH:MM: 12:13
+	Please enter the username printing the document: freedom
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 4
+
+
+	CLASSROOM BUILDING 222 PRINTER - DOCUMENTS WAITING FOR PRINTING
+
+	SEQUENCE                  NAME               ARRIVAL DATE/TIME              OWNER
+	5                     Next One                7/ 4/1776 12:13             freedom
+	4                  Hammer Time                8/25/1982  9:47            mchammer
+	2            Birds of Paradise                9/21/1975 11:45            garrettb
+
+	There are 3 job(s) waiting to be printed.
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 3
+
+	Which print job would you like to cancel? Next One
+
+	The document was removed and was not printed.
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 4
+
+
+	CLASSROOM BUILDING 222 PRINTER - DOCUMENTS WAITING FOR PRINTING
+
+	SEQUENCE                  NAME               ARRIVAL DATE/TIME              OWNER
+	4                  Hammer Time                8/25/1982  9:47            mchammer
+	2            Birds of Paradise                9/21/1975 11:45            garrettb
+
+	There are 2 job(s) waiting to be printed.
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 2
+
+	The Birds of Paradise document has been printed.
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 4
+
+
+	CLASSROOM BUILDING 222 PRINTER - DOCUMENTS WAITING FOR PRINTING
+
+	SEQUENCE                  NAME               ARRIVAL DATE/TIME              OWNER
+	4                  Hammer Time                8/25/1982  9:47            mchammer
+
+	There are 1 job(s) waiting to be printed.
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 2
+
+	The Hammer Time document has been printed.
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 4
+
+
+	CLASSROOM BUILDING 222 PRINTER - DOCUMENTS WAITING FOR PRINTING
+
+	SEQUENCE                  NAME               ARRIVAL DATE/TIME              OWNER
+
+	There are 0 job(s) waiting to be printed.
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 2
+
+	No documents to print.
+
+	Print Queue Management System
+
+	1) New print job
+	2) Print a document
+	3) Cancel a print request - remove print job
+	4) List all documents waiting to be printed
+	5) Quit
+
+	What would you like to do? 5
+
+Thanks for using the Print Queue Management System
+]0;agarrett0098@grace: ~/CS215/project4[01;32magarrett0098@grace[00m:[01;34m~/CS215/project4[00m$ exit
+exit
+
+Script done on Wed 15 Apr 2020 05:26:20 PM EDT
