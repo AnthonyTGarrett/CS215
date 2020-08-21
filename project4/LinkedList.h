@@ -33,21 +33,20 @@ struct MyNode
 
 class LinkedList
 {
-    private:
-        MyNode *head;
-        MyNode *tail;
+private:
+    MyNode *head;
+    MyNode *tail;
 
-    public:
-        LinkedList();
+public:
+    LinkedList();
 
-        ~LinkedList();
+    ~LinkedList();
 
-        void InsertNode(string, int, int, int, int, int, string);
-        bool DeleteNode(string);
-        MyNode *SearchNode(string);
-        MyNode *PrintDocument();
-        int ListAll();
-
+    void InsertNode(string, int, int, int, int, int, string);
+    bool DeleteNode(string);
+    MyNode *SearchNode(string);
+    MyNode *PrintDocument();
+    int ListAll();
 };
 
 #endif

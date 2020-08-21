@@ -22,7 +22,7 @@ LinkedList::LinkedList()
 
 LinkedList::~LinkedList()
 {
-    MyNode *nodePtr; // Used to step through the list of nodes
+    MyNode *nodePtr;  // Used to step through the list of nodes
     MyNode *nextNode; // Used to keep track of the next node in the list
 
     // Start at the beginning of the list
@@ -34,10 +34,8 @@ LinkedList::~LinkedList()
         // Save the next pointer value
         nextNode = nodePtr->next;
 
-        
         delete nodePtr;
 
-        
         nodePtr = nextNode;
     }
 }
@@ -78,7 +76,6 @@ void LinkedList::InsertNode(string doc_name, int new_month, int new_day, int new
         newNode->sequence_number = head->sequence_number + 1;
         newNode->next = head;
         head = newNode;
-
     }
 }
 
@@ -122,7 +119,7 @@ bool LinkedList::DeleteNode(string doc_name)
             nodePtr = nodePtr->next;
         }
 
-        if(nodePtr)
+        if (nodePtr)
         {
             prevNode->next = nodePtr->next;
             delete nodePtr;
@@ -140,12 +137,12 @@ bool LinkedList::DeleteNode(string doc_name)
 // null if not found
 //************************************************************
 
-MyNode * LinkedList::SearchNode(string doc_name)
+MyNode *LinkedList::SearchNode(string doc_name)
 {
     MyNode *nodePtr;
     nodePtr = NULL;
 
-    if(!head)
+    if (!head)
     {
         return nodePtr;
     }
@@ -170,13 +167,13 @@ MyNode * LinkedList::SearchNode(string doc_name)
 // Return a pointer to the tail of the list
 //************************************************************
 
-MyNode * LinkedList::PrintDocument()
+MyNode *LinkedList::PrintDocument()
 {
     MyNode *nodePtr;
     MyNode *prevPtr;
 
     // Check if list is empty then return NULL and notify user
-    if(!head)
+    if (!head)
     {
         cout << "\n\tNo documents to print.\n";
         return NULL;
@@ -184,16 +181,15 @@ MyNode * LinkedList::PrintDocument()
 
     // Check if only one node exists in list
     // Delete head and notify user
-    if(head == tail)
+    if (head == tail)
     {
         nodePtr = head;
 
-        cout << "\n\tThe "<< nodePtr->document_name << " document has been printed." << endl;
+        cout << "\n\tThe " << nodePtr->document_name << " document has been printed." << endl;
         head = NULL;
         tail = NULL;
         delete nodePtr;
         return NULL;
-        
     }
     else
     {
@@ -208,7 +204,7 @@ MyNode * LinkedList::PrintDocument()
 
         if (nodePtr)
         {
-            cout << "\n\tThe "<< nodePtr->document_name << " document has been printed." << endl;
+            cout << "\n\tThe " << nodePtr->document_name << " document has been printed." << endl;
             tail = prevPtr;
             prevPtr->next = NULL;
             delete nodePtr;
@@ -229,7 +225,7 @@ int LinkedList::ListAll()
 
     MyNode *nodePtr;
 
-    if(!head)
+    if (!head)
         return counter;
 
     nodePtr = head;
